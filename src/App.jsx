@@ -15,19 +15,11 @@ export default function App() {
     return !sessionStorage.getItem('hasSeenIntro');
   });
   return (
-    <div className="min-h-screen relative overflow-hidden bg-[var(--color-bg-primary)]">
-      {/* Intro Animation Overlay */}
-      {showIntro && (
-        <IntroAnimation onComplete={() => setShowIntro(false)} />
-      )}
-
-      {/* Main App Content - Fades in after Intro */}
-      <div
-        className={`transition-opacity duration-1000 ${showIntro ? 'opacity-0 h-screen overflow-hidden' : 'opacity-100'
-          }`}
-      >
+    <div className="min-h-screen relative bg-[var(--color-bg-primary)] selection:bg-[#818cf8]/20 selection:text-[#818cf8]">
+      {showIntro && <IntroAnimation onComplete={() => setShowIntro(false)} />}
+      <div className={`transition-opacity duration-1000 ${showIntro ? 'opacity-0 h-screen overflow-hidden' : 'opacity-100'}`}>
         <Navbar />
-        <main>
+        <main className="w-full max-w-3xl mx-auto px-6 flex flex-col items-start gap-32 pt-[140px] pb-32">
           <Hero />
           <About />
           <Skills />

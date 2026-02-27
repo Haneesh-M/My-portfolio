@@ -21,26 +21,27 @@
   --color-accent-emerald: #10b981;
 }
 
-/* Base Light Theme - Orange Mix */
+/* Base Light Theme - Clean SaaS Neutral */
 :root {
-  --bg-primary: #fff7ed;
-  /* orange-50 */
-  --bg-secondary: #ffedd5;
-  /* orange-100 */
+  --bg-primary: #f8fafc;
+  /* slate-50 */
+  --bg-secondary: #f1f5f9;
+  /* slate-100 */
   --bg-card: #ffffff;
 
-  --text-primary: #431407;
-  /* orange-950 */
-  --text-secondary: #9a3412;
-  /* orange-800 */
-  --text-muted: #c2410c;
-  /* orange-700 */
+  --text-primary: #0f172a;
+  /* slate-900 */
+  --text-secondary: #334155;
+  /* slate-700 */
+  --text-muted: #64748b;
+  /* slate-500 */
 
-  --border-subtle: rgba(234, 88, 12, 0.2);
-  /* orange border */
+  --border-subtle: rgba(15, 23, 42, 0.1);
+  /* slate border */
+  --bg-glass: rgba(255, 255, 255, 0.7);
 }
 
-/* Dark Theme overrides (Matching the screenshot) */
+/* Dark Theme - Deep Professional Slate */
 .dark {
   --bg-primary: #0b0f19;
   /* Deep dark blue-black */
@@ -52,7 +53,8 @@
   --text-secondary: #94a3b8;
   --text-muted: #64748b;
 
-  --border-subtle: rgba(255, 255, 255, 0.05);
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --bg-glass: rgba(11, 15, 25, 0.7);
 }
 
 * {
