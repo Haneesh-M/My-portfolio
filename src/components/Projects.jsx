@@ -4,50 +4,54 @@ import Section from './ui/Section';
 
 export default function Projects() {
     return (
-        <Section id="projects" title="03. Projects">
-            <div className="flex flex-col gap-16">
+        <Section id="projects" title="Work.">
+            <div className="w-full flex flex-col gap-32">
                 {projects.map((project, i) => (
                     <motion.article
                         key={project.id}
-                        initial={{ opacity: 0, y: 20 }}
+                        initial={{ opacity: 0, y: 30 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: i * 0.1 }}
-                        className="flex flex-col group"
+                        viewport={{ once: true, margin: '-50px' }}
+                        transition={{ duration: 0.6, delay: i * 0.1 }}
+                        className="w-full grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-start"
                     >
-                        <div className="flex flex-col md:flex-row md:items-baseline md:justify-between mb-4 gap-2">
-                            <h3 className="text-2xl font-bold text-[var(--color-text-primary)] group-hover:text-[#818cf8] transition-colors">
+                        {/* Title & Metadata */}
+                        <div className="lg:col-span-4 flex flex-col">
+                            <span className="text-sm font-bold text-[#818cf8] uppercase tracking-widest mb-4">
+                                {project.subtitle}
+                            </span>
+
+                            <h3 className="text-4xl lg:text-5xl font-black text-[var(--color-text-primary)] tracking-tight mb-8">
                                 {project.title}
                             </h3>
-                            <div className="flex items-center gap-4">
-                                <span className="text-xs font-bold text-[#818cf8] uppercase tracking-wider md:hidden">{project.subtitle}</span>
-                                <a
-                                    href={project.github}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="text-sm font-medium text-[var(--color-text-secondary)] hover:text-[#818cf8] transition-colors hidden md:inline-flex"
-                                >
-                                    Source ↗
-                                </a>
+
+                            <a
+                                href={project.github}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center gap-4 text-[var(--color-text-primary)] font-bold text-lg hover:text-[#818cf8] transition-colors group w-max"
+                            >
+                                View Source
+                                <svg className="transform group-hover:translate-x-2 transition-transform" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                                    <path d="M5 12h14M12 5l7 7-7 7" />
+                                </svg>
+                            </a>
+                        </div>
+
+                        {/* Description & Tech */}
+                        <div className="lg:col-span-8 flex flex-col">
+                            <p className="text-xl lg:text-2xl text-[var(--color-text-secondary)] leading-relaxed mb-12 font-medium">
+                                {project.description}
+                            </p>
+
+                            <div className="flex flex-wrap gap-4">
+                                {project.tech.map(tech => (
+                                    <span key={tech} className="px-5 py-2.5 bg-[var(--color-bg-primary)] border border-[var(--color-border-subtle)] text-sm font-bold text-[var(--color-text-primary)]">
+                                        {tech}
+                                    </span>
+                                ))}
                             </div>
                         </div>
-                        <span className="text-xs font-bold text-[#818cf8] uppercase tracking-wider hidden md:block mb-4 -mt-2">{project.subtitle}</span>
-                        <p className="text-[var(--color-text-secondary)] text-lg mb-6 leading-relaxed">
-                            {project.description}
-                        </p>
-                        <p className="text-sm font-mono text-[var(--color-text-muted)] mt-auto">
-                            {project.tech.join(' · ')}
-                        </p>
-
-                        {/* Mobile active link */}
-                        <a
-                            href={project.github}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-sm font-medium text-[var(--color-text-primary)] mt-4 md:hidden border-b border-transparent hover:border-[var(--color-text-primary)] self-start pb-1 transition-all"
-                        >
-                            View Source ↗
-                        </a>
                     </motion.article>
                 ))}
             </div>
@@ -56,15 +60,18 @@ export default function Projects() {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className="mt-16"
+                className="mt-24 pt-12 border-t border-[var(--color-border-subtle)] flex justify-between items-center"
             >
+                <span className="text-2xl font-bold text-[var(--color-text-primary)]">More on GitHub</span>
                 <a
                     href="https://github.com/Haneesh-M"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-sm font-medium border-b border-[var(--color-border-subtle)] text-[var(--color-text-primary)] hover:border-[#818cf8] hover:text-[#818cf8] transition-colors pb-1 inline-flex items-center gap-2"
+                    className="p-4 rounded-full bg-[var(--color-text-primary)] text-[var(--color-bg-primary)] hover:bg-[#818cf8] hover:text-white transition-colors"
                 >
-                    View archive on GitHub
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M5 12h14M12 5l7 7-7 7" />
+                    </svg>
                 </a>
             </motion.div>
         </Section>

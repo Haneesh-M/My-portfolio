@@ -16,7 +16,7 @@ export default function Navbar() {
 
     useEffect(() => {
         const onScroll = () => {
-            setScrolled(window.scrollY > 20);
+            setScrolled(window.scrollY > 10);
         };
         window.addEventListener('scroll', onScroll, { passive: true });
         return () => window.removeEventListener('scroll', onScroll);
@@ -27,7 +27,7 @@ export default function Navbar() {
         setMenuOpen(false);
         const target = document.querySelector(href);
         if (target) {
-            const top = target.getBoundingClientRect().top + window.scrollY - 100;
+            const top = target.getBoundingClientRect().top + window.scrollY - 80;
             window.scrollTo({ top, behavior: 'smooth' });
         }
     };
@@ -37,92 +37,99 @@ export default function Navbar() {
             initial={{ y: -80, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.6, ease: 'easeOut' }}
-            className={`fixed top-0 left-0 right-0 z-[100] transition-colors duration-300 ${scrolled
-                ? 'bg-[var(--color-bg-primary)]/90 backdrop-blur-xl border-b border-[var(--color-border-subtle)]'
-                : 'bg-transparent py-4'
+            // Strict full-width top sticky header, plain, professional border.
+            className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-300 ${scrolled
+                ? 'bg-[var(--color-bg-primary)]/90 backdrop-blur-md border-b border-[var(--color-border-subtle)] shadow-sm py-4'
+                : 'bg-transparent border-b border-transparent py-6'
                 }`}
         >
-            <nav className="max-w-3xl mx-auto px-6 h-16 flex items-center justify-between">
+            <nav className="flex items-center justify-between w-full px-[5%] md:px-[8%] lg:px-[12%] mx-auto">
 
                 {/* Logo */}
                 <a
                     href="#hero"
                     onClick={e => handleNav(e, '#hero')}
-                    className="font-bold text-lg tracking-tighter text-[var(--color-text-primary)] hover:opacity-80 transition-opacity"
+                    className="font-black text-2xl tracking-tighter text-[var(--color-text-primary)] hover:text-[#818cf8] transition-colors"
                 >
-                    Haneesh M.
+                    Haneesh<span className="text-[#818cf8]">.</span>
                 </a>
 
                 {/* Desktop Links */}
-                <div className="hidden md:flex items-center gap-8">
+                <div className="hidden md:flex items-center gap-8 justify-center">
                     {navLinks.map(link => (
                         <a
                             key={link.href}
                             href={link.href}
                             onClick={e => handleNav(e, link.href)}
-                            className="text-sm font-medium text-[var(--color-text-secondary)] hover:text-[#818cf8] transition-colors"
+                            className="text-sm font-bold text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] transition-colors relative group py-2"
                         >
                             {link.label}
+                            {/* Simple classic underline hover */}
+                            <div className="absolute bottom-0 left-0 w-0 h-[2px] bg-[#818cf8] group-hover:w-full transition-all duration-300 ease-out" />
                         </a>
                     ))}
-                    <div className="w-px h-4 bg-[var(--color-border-subtle)]" />
+                </div>
+
+                {/* Right Actions */}
+                <div className="hidden md:flex items-center gap-6">
                     <ThemeToggle />
                     <a
                         href={personal.resumeUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-sm font-bold text-[var(--color-text-primary)] hover:text-[#818cf8] transition-colors pb-0.5"
+                        className="px-6 py-2 border border-[var(--color-border-subtle)] bg-transparent hover:bg-[var(--color-bg-secondary)] hover:border-[#818cf8] text-[var(--color-text-primary)] text-sm font-bold transition-all duration-300"
                     >
-                        Resume ↗
+                        Resume
                     </a>
                 </div>
 
                 {/* Mobile Menu Button */}
-                <div className="md:flex hidden lg:hidden items-center gap-4">
-                    <ThemeToggle />
-                </div>
-                <div className="md:hidden flex items-center gap-4">
+                <div className="md:hidden flex items-center gap-4 ml-auto">
                     <ThemeToggle />
                     <button
                         onClick={() => setMenuOpen(v => !v)}
-                        className="p-2 -mr-2 text-sm font-medium text-[var(--color-text-primary)] uppercase tracking-wider"
+                        className="p-2 text-[var(--color-text-primary)] hover:text-[#818cf8] transition-colors"
                         aria-label="Toggle menu"
                     >
-                        {menuOpen ? 'Close' : 'Menu'}
+                        <div className="w-6 h-5 flex flex-col justify-between">
+                            <span className={`w-full h-0.5 bg-current transform transition-all duration-300 rounded ${menuOpen ? 'rotate-45 translate-y-2' : ''}`} />
+                            <span className={`w-full h-0.5 bg-current transition-all duration-300 rounded ${menuOpen ? 'opacity-0' : ''}`} />
+                            <span className={`w-full h-0.5 bg-current transform transition-all duration-300 rounded ${menuOpen ? '-rotate-45 -translate-y-2' : ''}`} />
+                        </div>
                     </button>
                 </div>
             </nav>
 
-            {/* Mobile Menu */}
+            {/* Mobile Menu Dropdown */}
             <AnimatePresence>
                 {menuOpen && (
                     <motion.div
-                        initial={{ opacity: 0, y: -10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -10 }}
-                        transition={{ duration: 0.2 }}
-                        className="md:hidden absolute top-full left-0 right-0 bg-[var(--color-bg-primary)] border-b border-[var(--color-border-subtle)] shadow-xl"
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: 'auto' }}
+                        exit={{ opacity: 0, height: 0 }}
+                        transition={{ duration: 0.3 }}
+                        className="absolute top-full left-0 right-0 bg-[var(--color-bg-primary)] border-b border-[var(--color-border-subtle)] shadow-xl overflow-hidden md:hidden"
                     >
-                        <ul className="flex flex-col px-6 py-4 gap-4">
+                        <ul className="flex flex-col p-6 gap-4">
                             {navLinks.map(link => (
                                 <li key={link.href}>
                                     <a
                                         href={link.href}
                                         onClick={e => handleNav(e, link.href)}
-                                        className="block text-lg font-medium text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]"
+                                        className="block py-3 text-2xl font-bold text-[var(--color-text-primary)] hover:text-[#818cf8] transition-colors"
                                     >
                                         {link.label}
                                     </a>
                                 </li>
                             ))}
-                            <li className="pt-4 border-t border-[var(--color-border-subtle)] mt-2 pb-4">
+                            <li className="pt-6 mt-2 border-t border-[var(--color-border-subtle)]">
                                 <a
                                     href={personal.resumeUrl}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="block text-lg font-bold text-[var(--color-text-primary)]"
+                                    className="flex justify-center w-full py-4 bg-[var(--color-text-primary)] text-[var(--color-bg-primary)] text-lg font-bold hover:bg-[#818cf8] hover:text-white transition-colors"
                                 >
-                                    Resume ↗
+                                    Resume
                                 </a>
                             </li>
                         </ul>

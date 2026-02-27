@@ -17,15 +17,22 @@ export default function App() {
   return (
     <div className="min-h-screen relative bg-[var(--color-bg-primary)] selection:bg-[#818cf8]/20 selection:text-[#818cf8]">
       {showIntro && <IntroAnimation onComplete={() => setShowIntro(false)} />}
-      <div className={`transition-opacity duration-1000 ${showIntro ? 'opacity-0 h-screen overflow-hidden' : 'opacity-100'}`}>
+      <div className={`transition-opacity duration-1000 w-full flex flex-col ${showIntro ? 'opacity-0 h-screen overflow-hidden' : 'opacity-100'}`}>
         <Navbar />
-        <main className="w-full max-w-3xl mx-auto px-6 flex flex-col items-start gap-32 pt-[140px] pb-32">
+        {/* Full width container, spacing is handled purely by Sections padding */}
+        <main className="w-full flex flex-col">
           <Hero />
-          <About />
+          <div className="w-full bg-[var(--color-bg-secondary)] border-y border-[var(--color-border-subtle)]">
+            <About />
+          </div>
           <Skills />
-          <Projects />
+          <div className="w-full bg-[var(--color-bg-secondary)] border-y border-[var(--color-border-subtle)]">
+            <Projects />
+          </div>
           <Education />
-          <Contact />
+          <div className="w-full bg-[var(--color-bg-secondary)] border-t border-[var(--color-border-subtle)]">
+            <Contact />
+          </div>
         </main>
         <Footer />
       </div>
